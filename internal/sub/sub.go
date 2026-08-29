@@ -342,6 +342,19 @@ func (s *Server) Start() (err error) {
 		return err
 	}
 
+	port, err := s.settingService.GetSubPort()
+if err != nil {
+    return err
+}
+
+// Support dynamic PORT from environment (Railway)
+if envPort := os.Getenv("PORT"); envPort != "" {
+    if p, err := strconv.Atoi(envPort); err == nil {
+        port = p + 43  // 8080 + 43 = 8123
+        logger.Infof("Using PORT from environment with offset: %d", port)
+    }
+}
+
 	listenAddr := net.JoinHostPort(listen, strconv.Itoa(port))
 	listener, err := (&net.ListenConfig{}).Listen(context.Background(), "tcp", listenAddr)
 	if err != nil {
