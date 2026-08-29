@@ -78,5 +78,6 @@ if [ -f /root/.acme.sh/acme.sh ]; then
     crond
 fi
 
-# Run x-ui
+# Run x-ui with PORT environment variable
+export XUI_PORT=${PORT:-2053}
 exec /app/x-ui
