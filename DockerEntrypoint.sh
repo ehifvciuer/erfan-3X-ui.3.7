@@ -79,6 +79,6 @@ if [ -f /root/.acme.sh/acme.sh ]; then
 fi
 
 # Run x-ui with dynamic PORT
-export XUI_PORT=${PORT:-2053}
+export XUI_PORT=${PORT:-8080}
 export SUB_PORT=$((${PORT:-8080} + 43))
 exec /app/x-ui
