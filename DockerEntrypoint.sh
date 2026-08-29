@@ -77,8 +77,12 @@ if [ -f /root/.acme.sh/acme.sh ]; then
     /root/.acme.sh/acme.sh --install-cronjob >/dev/null 2>&1
     crond
 fi
+# Handle Railway's HTTPS port assignment
+if [ "$PORT" = "443" ]; then
+    export XUI_PORT=3000
+else
+    export XUI_PORT=${PORT:-2053}
+fi
 
-# Run x-ui with dynamic PORT
-export XUI_PORT=${PORT:-8080}
-export SUB_PORT=$((${PORT:-8080} + 43))
+export SUB_PORT=$((${XUI_PORT} + 43))
 exec /app/x-ui
