@@ -342,11 +342,6 @@ func (s *Server) Start() (err error) {
 		return err
 	}
 
-	port, err := s.settingService.GetSubPort()
-if err != nil {
-    return err
-}
-
 // Support dynamic PORT from environment (Railway)
 if envPort := os.Getenv("PORT"); envPort != "" {
     if p, err := strconv.Atoi(envPort); err == nil {
